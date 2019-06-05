@@ -1,18 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 export class Search extends Component {
   state = {
-    text: ""
-  };
+    text: ''
+  }
 
-  onChange = event => {
-    this.setState({ text: event.target.value });
-  };
+  onChange = event => this.setState({ [event.target.name]: event.target.value })
+
+  onSubmit = event => {
+    event.preventDefault()
+    this.props.searchUsers(this.state.text)
+    this.setState({text: ''})
+  }
 
   render() {
     return (
       <div>
-        <form className="form">
+        <form onSubmit={this.onSubmit} className="form">
           <input
             type="text"
             name="text"
@@ -27,8 +31,8 @@ export class Search extends Component {
           />
         </form>
       </div>
-    );
+    )
   }
 }
 
-export default Search;
+export default Search
